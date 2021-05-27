@@ -1,0 +1,27 @@
+{
+  "name": "crawler",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app/app.ts",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "cheerio": "^1.0.0-rc.9",
+    "mongoose": "^5.12.10",
+    "puppeteer": "^9.1.1"
+  },
+  "devDependencies": {
+    "@tsconfig/node14": "^1.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.24.0",
+    "@typescript-eslint/parser": "^4.24.0",
+    "eslint": "^7.27.0",
+    "typescript": "^4.2.4"
+  },
+  "scripts": {
+    "get": "node ./js/app.js",
+    "tsc": "tsc -w",
+    "drop-get": "node ./js/app.js drop"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

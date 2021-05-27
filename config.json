@@ -1,0 +1,5 @@
+{
+  "dbSrc": "mongodb://mobaAdmin:123456@localhost/moba",
+  "pageCount": 5,
+  "isTest": ""
+}
