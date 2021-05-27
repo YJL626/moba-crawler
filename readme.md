@@ -14,16 +14,29 @@
 
 ### 配置
 
+#### 
+
 ```javascript
 ./config.json 配置MongoDB地址,以及爬虫参数
+{
+    dbSrc: string, //mongdb 地址 
+    pageCount: number, //同时开启的页面数量,默认值为5
+	isTest: string, // 空值为正常模式,其余任意值均为测试模式 测试模式仅会爬取一小部分数据,用于测试可用性  默认值为""空字符转
+}
+    
+eg:{
+  "dbSrc": "mongodb://localhost/moba",
+  "pageCount": 5,
+  "isTest": ""
+}
+有密码的 :
+eg :{
+    "dbSrc": 'mongodb://mobaAdmin:123456@localhost/moba',
+  "pageCount": 5,
+  "isTest": ""
+}
 
-dbSrc: string //mongdb 地址 
-没有密码的直接输入src  eg:"mongodb://localhost/moba"
-有密码,密码在此处配置 eg:'mongodb://mobaAdmin:123456@localhost/moba'
 
-pageCount: number //同时开启的页面数量,默认值为5
-
-isTest: string // 空值为正常模式,其余任意值均为测试模式 测试模式仅会爬取一小部分数据,用于测试可用性  默认值为""空字符转
 ```
 
 ### 项目运行
