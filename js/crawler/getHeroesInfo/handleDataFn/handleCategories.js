@@ -41,7 +41,7 @@ async function getHeroCategoryId() {
     }
     else {
         console.log('getHeroCategoryId error');
-        process.exit();
+        return '';
     }
 }
 //# sourceMappingURL=handleCategories.js.map

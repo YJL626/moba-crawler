@@ -1,6 +1,7 @@
 import { Browser } from 'puppeteer'
 import { iPhone } from '../../../config'
 type heroListItem = { [prop: number]: string }
+
 const getHeroIndexList = async (browser: Browser): Promise<number[]> => {
   const page = await browser.newPage()
   await page.emulate(iPhone)
@@ -23,11 +24,13 @@ const getHeroIndexList = async (browser: Browser): Promise<number[]> => {
 
     if (tryCount === 1) {
       console.log('获取失败')
+      process.exit()
     }
+    console.log('获取失败 正在重试')
     await page.goto('https://pvp.qq.com/m/', { waitUntil: 'networkidle0' })
     tryCount--
   }
-  console.log('list-获取失败')
-  return process.exit()
+  console.log('id list-获取失败')
+  process.exit()
 }
 export { getHeroIndexList }

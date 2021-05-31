@@ -41,8 +41,7 @@ async function getHeroCategoryId() {
     return document._id
   } else {
     console.log('getHeroCategoryId error')
-
-    process.exit()
+    return ''
   }
 }
 export { handleCategories }

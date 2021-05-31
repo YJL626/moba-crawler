@@ -2,40 +2,43 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.handleCategories = void 0;
 const category_model_1 = require("../../../db/model/category.model");
-let newsId = '';
+let articleId = '';
 const handleCategories = async (category) => {
-    if (!newsId)
-        await getNewsId();
+    if (!articleId) {
+        articleId = await getArticleId();
+    }
     let categoryDocument = await category_model_1.CategoryModel.findOne({ name: category });
     if (categoryDocument) {
         return categoryDocument._id;
     }
-    categoryDocument = await new category_model_1.CategoryModel({ name: category })
+    categoryDocument = await new category_model_1.CategoryModel({
+        name: category,
+        parent: articleId,
+    })
         .save()
         .catch(() => category_model_1.CategoryModel.findOne({ name: category }));
     if (categoryDocument) {
         return categoryDocument._id;
     }
     else {
-        console.log('handleCategories error');
-        process.exit();
+        console.log('handleCategories id error');
+        return '';
     }
 };
 exports.handleCategories = handleCategories;
-async function getNewsId() {
-    let newsDocument = await category_model_1.CategoryModel.findOne({ name: '新闻' });
+async function getArticleId() {
+    let newsDocument = await category_model_1.CategoryModel.findOne({ name: '文章' });
     if (newsDocument) {
-        newsId = newsDocument._id;
-        return;
+        return newsDocument._id;
     }
-    newsDocument = await new category_model_1.CategoryModel({ name: '新闻' })
+    newsDocument = await new category_model_1.CategoryModel({ name: '文章' })
         .save()
-        .catch(() => category_model_1.CategoryModel.findOne({ name: '新闻' }, { parent: newsId }));
+        .catch(() => category_model_1.CategoryModel.findOne({ name: '文章' }));
     if (newsDocument) {
-        newsDocument._id;
+        return newsDocument._id;
     }
     else {
-        console.log('getNewsId error');
+        console.log('getArticleId error');
         process.exit();
     }
 }

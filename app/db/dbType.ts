@@ -33,15 +33,22 @@ interface heroDetail {
   heroRelations: Array<heroRelation>
   learnVideos: Array<videoInfo>
 }
-interface news {
+interface article {
   title: string
   src: string
   categories: string[]
-  time: string
+  time: Date
 }
-interface newsInFO {
-  newsId: string
+interface articleInfo {
+  articleId: string
   content: string
+}
+interface banner {
+  pic: string
+  name: string
+  category: string
+  src: string
+  index: number
 }
 type videoInfo = {
   title: string
@@ -60,4 +67,13 @@ type rune = {
   buffs: string[]
 }
 type tip = { title: string; content: string }
-export { heroDetail, rune, tip, heroRelation, videoInfo, news, newsInFO }
+export {
+  heroDetail,
+  rune,
+  tip,
+  heroRelation,
+  videoInfo,
+  article,
+  articleInfo,
+  banner,
+}
