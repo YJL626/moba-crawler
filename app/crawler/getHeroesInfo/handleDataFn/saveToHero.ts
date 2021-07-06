@@ -17,6 +17,7 @@ const saveToHero = async ({
   if (result) {
     return result._id
   }
+
   const heroImg = `//game.gtimg.cn/images/yxzj/img201606/heroimg/${index}/${index}.jpg`
   const heroData = { name, title, heroImg, categories }
   console.log(heroData)

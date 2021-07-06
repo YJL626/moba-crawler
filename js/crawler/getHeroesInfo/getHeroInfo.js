@@ -23,11 +23,8 @@ async function getHeroInfo(index, browser) {
     const page = await browser.newPage();
     await page.emulate(config_1.iPhone);
     const heroInfoUrl = getHeroTargetUrl_1.getHeroInfoUrl(index);
-    await page.goto(heroInfoUrl, {
-        waitUntil: 'networkidle0',
-    });
+    await page.goto(heroInfoUrl, config_1.pageOption);
     const htmlData = await page.content();
-    page.close();
     const $ = cheerio_1.default.load(htmlData);
     const heroId = await saveToHero_1.saveToHero({
         name: $('.hero-name').text(),
@@ -41,13 +38,13 @@ async function getHeroInfo(index, browser) {
     }
     const heroDetailData = {
         heroId,
-        soccer: {
+        score: {
             difficult: Number($('.cnver4').attr('class')?.slice(-1)) || 10,
             skill: Number($('.cnver3').attr('class')?.slice(-1)) || 10,
             attack: Number($('.cnver2').attr('class')?.slice(-1)) || 10,
             survive: Number($('.cnver1').attr('class')?.slice(-1)) || 10,
         },
-        bgcPic: $('.header-hero>img').attr('href') || '',
+        bgcPic: $('.header-hero>img').attr('src') || '',
         skins: await handelSkins_1.handleSkins($('.hero-skin').attr('href'), browser),
         heroVideo: $('.hero-video>a:nth-child(1)').attr('href') || '',
         skills: await handelSkills_1.handleSkills($),
@@ -59,7 +56,8 @@ async function getHeroInfo(index, browser) {
         learnVideos: await handleLearnVideos_1.handleLearnVideos($),
         infoPic: await getInfoPicUrl_1.getInfoPicUrl(index),
     };
-    return await saveToHeroDetail(heroDetailData).catch((err) => console.log(err));
+    await page.close();
+    await saveToHeroDetail(heroDetailData).catch((err) => console.log(err));
 }
 exports.getHeroInfo = getHeroInfo;
 async function saveToHeroDetail(heroDetail) {
@@ -69,8 +67,6 @@ async function saveToHeroDetail(heroDetail) {
     if (document) {
         return document._id;
     }
-    const model = new hero_model_1.HeroDetailModel(heroDetail);
-    document = await model.save();
-    return document;
+    new hero_model_1.HeroDetailModel(heroDetail).save().catch((err) => console.log(err));
 }
 //# sourceMappingURL=getHeroInfo.js.map

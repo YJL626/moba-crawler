@@ -17,9 +17,7 @@ const getter_1 = require("./utils/getter");
 const getNewsList = async (browser) => {
     const page = await browser.newPage();
     await page.emulate(config_1.iPhone);
-    await page.goto(' https://pvp.qq.com/m/m201706/newsList.shtml', {
-        waitUntil: 'networkidle0',
-    });
+    await page.goto(' https://pvp.qq.com/m/m201706/newsList.shtml', config_1.pageOption);
     let categoryCount = await page.evaluate(() => document.querySelectorAll(`#acBanner.news_list>ul>li`).length);
     while (categoryCount) {
         if (config_1.isTest) {
@@ -60,7 +58,7 @@ async function saveArticleToMap($ArticleElements, articleMap) {
                 categories,
                 title: title,
                 src: $(elem).find('a').attr('href') || '',
-                time: new Date($(elem).find('time').text()),
+                time: new Date($(elem).find('time').text()).getTime(),
             });
         }
         catch (error) {

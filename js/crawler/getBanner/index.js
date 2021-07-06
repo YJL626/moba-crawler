@@ -12,7 +12,7 @@ const handleCategory_1 = require("./handleCategory");
 const getHomeBanners = async (browser) => {
     const page = await browser.newPage();
     await page.emulate(config_1.iPhone);
-    await page.goto('https://pvp.qq.com/m/');
+    await page.goto('https://pvp.qq.com/m/', config_1.pageOption);
     const html = await page.content();
     const $ = cheerio_1.default.load(html);
     const banners = [];
@@ -37,6 +37,7 @@ const getHomeBanners = async (browser) => {
         console.log(err);
         process.exit();
     });
+    console.log('home banner end ');
 };
 exports.getHomeBanners = getHomeBanners;
 //# sourceMappingURL=index.js.map

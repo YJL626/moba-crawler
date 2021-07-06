@@ -18,7 +18,7 @@ const getArticleInfo = async (browser, article) => {
     const page = await browser.newPage();
     await page.emulate(config_1.iPhone);
     const targetUrl = article.src.replace(/^\/\//, 'http://');
-    await page.goto(targetUrl);
+    await page.goto(targetUrl, config_1.pageOption);
     const content = await page
         .$eval('.info_cont', (elem) => elem.innerHTML)
         .catch(() => '数据获取失败');

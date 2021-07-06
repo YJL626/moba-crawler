@@ -2,7 +2,7 @@ import cheerio, { Cheerio, Element as $Element, Element } from 'cheerio'
 import { Browser, Page } from 'puppeteer'
 import { article } from '../../db/dbType'
 import { handleCategories } from './handle/handleCategories'
-import { isTest, iPhone } from '../../config'
+import { isTest, iPhone, pageOption } from '../../config'
 import { getHotId } from './utils/getter'
 
 /**
@@ -14,9 +14,7 @@ import { getHotId } from './utils/getter'
 const getNewsList = async (browser: Browser): Promise<Array<article>> => {
   const page = await browser.newPage()
   await page.emulate(iPhone)
-  await page.goto(' https://pvp.qq.com/m/m201706/newsList.shtml', {
-    waitUntil: 'networkidle0',
-  })
+  await page.goto(' https://pvp.qq.com/m/m201706/newsList.shtml', pageOption)
   let categoryCount = await page.evaluate(
     () => document.querySelectorAll(`#acBanner.news_list>ul>li`).length
   )
@@ -65,7 +63,7 @@ async function saveArticleToMap(
           categories,
           title: title,
           src: $(elem).find('a').attr('href') || '',
-          time: new Date($(elem).find('time').text()),
+          time: new Date($(elem).find('time').text()).getTime(),
         })
       } catch (error) {
         console.log('getNewsList allSettled', error)

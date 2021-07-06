@@ -34,10 +34,15 @@ async function saveToEquipment(equipmentInfoList) {
         if (result)
             return result._id;
         const equipment = new equipment_model_1.EquipmentModel({ name, pic });
-        result = await equipment.save();
-        return result._id;
+        result = await equipment
+            .save()
+            .catch(() => equipment_model_1.EquipmentModel.findOne({ name: name }));
+        if (result)
+            return result._id;
+        console.log('get Equipment id error');
+        return '60e4671a9f039009743f4857';
     })).then((result) => result.map((item) => {
-        return item.value || '';
+        return item.value || '60e4671a9f039009743f4857';
     }));
     return idList;
 }

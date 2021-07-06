@@ -6,6 +6,7 @@ const closeExcessPage_1 = require("../utils/closeExcessPage");
 const getArticlesInfo_1 = require("./getArticlesInfo");
 const getArticleList_1 = require("./getArticleList");
 const getArticles = async (browser) => {
+    console.log('列表处操作会停顿十秒左右');
     //这个没有直接存入db getInfo时一并存入
     const newsList = await getArticleList_1.getNewsList(browser);
     console.log(`${newsList.length} 条news`);
@@ -19,6 +20,7 @@ const getArticles = async (browser) => {
         runningList.push(getArticlesInfo_1.getArticleInfo(browser, newsList[--len]));
         if (runningList.length >= config_1.pageCount) {
             await Promise.allSettled(runningList);
+            runningList = [];
             await closeExcessPage_1.closeExcessPage(browser, 1);
             runningList = [];
             //测试时仅获取少量的数据
@@ -26,6 +28,7 @@ const getArticles = async (browser) => {
                 break;
         }
     }
+    console.log('getArticles end');
 };
 exports.getArticles = getArticles;
 //# sourceMappingURL=index.js.map

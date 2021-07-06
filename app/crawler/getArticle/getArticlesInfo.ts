@@ -1,5 +1,5 @@
 import { Browser } from 'puppeteer'
-import { iPhone } from '../../config'
+import { iPhone, pageOption } from '../../config'
 import { article, articleInfo } from '../../db/dbType'
 import { ArticleContentModel, ArticleModel } from '../../db/model/article.model'
 const getArticleInfo = async (
@@ -24,7 +24,7 @@ const getArticleInfo = async (
   const page = await browser.newPage()
   await page.emulate(iPhone)
   const targetUrl = article.src.replace(/^\/\//, 'http://')
-  await page.goto(targetUrl)
+  await page.goto(targetUrl,pageOption)
   const content = await page
     .$eval('.info_cont', (elem) => elem.innerHTML)
     .catch(() => '数据获取失败')

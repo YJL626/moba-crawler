@@ -44,12 +44,16 @@ async function saveToEquipment(
       if (result) return result._id
 
       const equipment = new EquipmentModel({ name, pic })
-      result = await equipment.save()
-      return result._id
+      result = await equipment
+        .save()
+        .catch(() => EquipmentModel.findOne({ name: name }))
+      if (result) return result._id
+      console.log('get Equipment id error')
+      return '60e4671a9f039009743f4857'
     })
   ).then((result) =>
     result.map((item) => {
-      return (item.value as string) || ''
+      return (item.value as string) || '60e4671a9f039009743f4857'
     })
   )
 

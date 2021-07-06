@@ -3,12 +3,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getHeroesInfo = void 0;
 const config_1 = require("../../config");
 const closeExcessPage_1 = require("../utils/closeExcessPage");
+const addHeroHotCategory_1 = require("./addHeroHotCategory");
 const getHeroInfo_1 = require("./getHeroInfo");
 const getHeroIndexList_1 = require("./handleDataFn/getHeroIndexList");
 const getHeroesInfo = async (browser) => {
     const heroIndexList = await getHeroIndexList_1.getHeroIndexList(browser);
     let runningList = [];
-    /* await getHeroInfo(115, browser) */
     for (let i = 0; i < heroIndexList.length; i++) {
         if (config_1.isTest) {
             console.log('测试运行');
@@ -25,6 +25,9 @@ const getHeroesInfo = async (browser) => {
         }
     }
     await Promise.allSettled(runningList);
+    await closeExcessPage_1.closeExcessPage(browser);
+    await addHeroHotCategory_1.addHeroHotCategory(browser);
+    console.log('getHeroesInfo end');
 };
 exports.getHeroesInfo = getHeroesInfo;
 //# sourceMappingURL=index.js.map

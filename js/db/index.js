@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.mobaDbConnect = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
 const config_1 = require("../config");
-console.log('---');
+mongoose_1.default.set('useFindAndModify', false);
 const mobaDbConnect = mongoose_1.default.createConnection(config_1.dbSrc, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -14,7 +14,7 @@ const mobaDbConnect = mongoose_1.default.createConnection(config_1.dbSrc, {
 });
 exports.mobaDbConnect = mobaDbConnect;
 if (config_1.isDrop) {
-    console.log(config_1.isDrop);
+    console.log('mobaDbConnect.dropDatabase()');
     mobaDbConnect.dropDatabase();
 }
 mobaDbConnect.on('open', () => {

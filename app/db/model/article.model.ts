@@ -5,7 +5,7 @@ const articleSchema = new Schema({
   title: { type: String },
   src: String,
   categories: [{ type: SchemaTypes.ObjectId, ref: 'category' }],
-  time: Date,
+  time: Number,
 })
 
 const articleInfoSchema = new Schema({

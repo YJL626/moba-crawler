@@ -3,17 +3,24 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.handleHeroRelations = void 0;
 const handleHeroRelations = async ($) => {
     const heroRelations = [];
-    $('.rela-list').each((i, elem) => {
+    const $rel = $('.panel:nth-last-child(1)');
+    $rel.find('.tit2').each((index, elem) => {
         //获取标题
         const heroRelation = {
-            title: $(`.rela-list>.tit2:nth-child(${i + 1})`).text(),
+            title: $(elem).text(),
             list: [],
         };
         //填充list
-        $(elem).each((i, elem) => {
-            heroRelation.list.push({
-                pic: $(elem).find('img').attr('src') || '',
-                content: $(elem).find('p').text(),
+        $rel.find(`.rela-list`).each((indey, elem) => {
+            if (indey !== index)
+                return;
+            $(elem)
+                .find('li')
+                .each((i, li) => {
+                heroRelation.list.push({
+                    pic: $(li).find('img').attr('src') || '',
+                    content: $(li).find('p').text(),
+                });
             });
         });
         heroRelations.push(heroRelation);

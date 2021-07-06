@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-import { devices } from 'puppeteer'
+import { devices, WaitForOptions } from 'puppeteer'
 
 const {
   dbSrc,
@@ -14,4 +14,8 @@ const {
 //为true时清空数据再,获取数据
 const isDrop = process.argv[2] === 'drop' ? true : false
 const iPhone = devices['iPhone 6']
-export { dbSrc, pageCount, isTest, isDrop, iPhone }
+const pageOption:WaitForOptions = {
+  timeout: 1000 * 2000,
+  waitUntil: 'networkidle0',
+}
+export { dbSrc, pageCount, isTest, isDrop, iPhone, pageOption }

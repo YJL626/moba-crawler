@@ -1,6 +1,7 @@
 import { Browser } from 'puppeteer'
 import { isTest, pageCount } from '../../config'
 import { closeExcessPage } from '../utils/closeExcessPage'
+import { addHeroHotCategory } from './addHeroHotCategory'
 import { getHeroInfo } from './getHeroInfo'
 
 import { getHeroIndexList } from './handleDataFn/getHeroIndexList'
@@ -9,7 +10,6 @@ const getHeroesInfo = async (browser: Browser): Promise<void> => {
   const heroIndexList = await getHeroIndexList(browser)
 
   let runningList: Array<Promise<unknown>> = []
-  /* await getHeroInfo(115, browser) */
   for (let i = 0; i < heroIndexList.length; i++) {
     if (isTest) {
       console.log('测试运行')
@@ -26,5 +26,9 @@ const getHeroesInfo = async (browser: Browser): Promise<void> => {
     }
   }
   await Promise.allSettled(runningList)
+  await closeExcessPage(browser)
+  await addHeroHotCategory(browser)
+  console.log('getHeroesInfo end')
 }
+
 export { getHeroesInfo }

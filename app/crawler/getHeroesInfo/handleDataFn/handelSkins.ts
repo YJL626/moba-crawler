@@ -1,5 +1,6 @@
-import puppeteer, { Browser, Page } from 'puppeteer'
+import { Browser } from 'puppeteer'
 import cheerio from 'cheerio'
+import { pageOption } from '../../../config'
 const handleSkins = async (
   src: string | undefined,
   browser: Browser
@@ -8,7 +9,7 @@ const handleSkins = async (
   const page = await browser.newPage()
 
   src = src.replace(/^\/\//, 'http://')
-  await page.goto(src, { waitUntil: 'load' })
+  await page.goto(src, pageOption)
 
   const html = await page.content()
 

@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.HeroDetailModel = exports.HeroModel = void 0;
 const __1 = require("..");
 const mongoose_1 = require("mongoose");
+const homeVideo_model_1 = require("./homeVideo.model");
 const heroSchema = new mongoose_1.Schema({
     name: { type: String, required: true, unique: true },
     title: { type: String, required: true, unique: true },
@@ -11,7 +12,7 @@ const heroSchema = new mongoose_1.Schema({
 });
 const heroDetailSchema = new mongoose_1.Schema({
     heroId: { type: mongoose_1.SchemaTypes.ObjectId, ref: 'hero' },
-    soccer: {
+    score: {
         difficult: Number,
         skill: Number,
         attack: Number,
@@ -46,15 +47,7 @@ const heroDetailSchema = new mongoose_1.Schema({
     heroRelations: [
         { title: String, list: [{ pic: String, content: String }] },
     ],
-    learnVideos: [
-        {
-            title: String,
-            src: String,
-            pic: String,
-            createTime: String,
-            clickCount: String,
-        },
-    ],
+    learnVideos: [homeVideo_model_1.videoSchema],
 }, { timestamps: true });
 const HeroDetailModel = __1.mobaDbConnect.model('heroDetail', heroDetailSchema, 'heroDetails');
 exports.HeroDetailModel = HeroDetailModel;

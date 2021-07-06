@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.iPhone = exports.isDrop = exports.isTest = exports.pageCount = exports.dbSrc = void 0;
+exports.pageOption = exports.iPhone = exports.isDrop = exports.isTest = exports.pageCount = exports.dbSrc = void 0;
 /* eslint-disable @typescript-eslint/no-var-requires */
 const puppeteer_1 = require("puppeteer");
 const { dbSrc, pageCount = 4, isTest = '', } = require('../config.json');
@@ -12,4 +12,9 @@ const isDrop = process.argv[2] === 'drop' ? true : false;
 exports.isDrop = isDrop;
 const iPhone = puppeteer_1.devices['iPhone 6'];
 exports.iPhone = iPhone;
+const pageOption = {
+    timeout: 1000 * 2000,
+    waitUntil: 'networkidle0',
+};
+exports.pageOption = pageOption;
 //# sourceMappingURL=config.js.map

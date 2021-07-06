@@ -5,6 +5,7 @@ import { getArticleInfo } from './getArticlesInfo'
 import { getNewsList } from './getArticleList'
 
 const getArticles = async (browser: Browser) => {
+  console.log('列表处操作会停顿十秒左右')
   //这个没有直接存入db getInfo时一并存入
   const newsList = await getNewsList(browser)
   console.log(`${newsList.length} 条news`)
@@ -18,11 +19,13 @@ const getArticles = async (browser: Browser) => {
     runningList.push(getArticleInfo(browser, newsList[--len]))
     if (runningList.length >= pageCount) {
       await Promise.allSettled(runningList)
+      runningList = []
       await closeExcessPage(browser, 1)
       runningList = []
       //测试时仅获取少量的数据
       if (isTest && newsList.length - len > 30) break
     }
   }
+  console.log('getArticles end')
 }
 export { getArticles }

@@ -1,6 +1,6 @@
 interface heroDetail {
   heroId: string
-  soccer: {
+  score: {
     difficult: number
     skill: number
     attack: number
@@ -37,7 +37,7 @@ interface article {
   title: string
   src: string
   categories: string[]
-  time: Date
+  time: number
 }
 interface articleInfo {
   articleId: string
